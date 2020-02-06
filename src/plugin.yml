@@ -1,0 +1,9 @@
+name: AtlanticaPortals
+main: me.Quartz563.AtlanticaPortals.Main
+authors: ['Quartz563', 'RivkiinShadows']
+version: 0.2-ALPHA
+api-version: 1.13
+commands:
+  portals:
+    description: Portals
+    usage: /<command> open
