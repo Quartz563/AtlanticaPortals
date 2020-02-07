@@ -1,12 +1,10 @@
 package me.Quartz563.AtlanticaPortals;
 
-import com.sun.xml.internal.ws.api.server.AbstractInstanceResolver;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.EndGateway;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
@@ -63,12 +61,16 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(this, this);
+        this.getConfig().options().copyDefaults(true);
         this.getCommand("portals");
+        reloadPlayerDataFile();
+        savePlayerData();
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
+        savePlayerData();
     }
 
     public void reloadPlayerDataFile() {
@@ -509,14 +511,16 @@ public class Main extends JavaPlugin implements Listener {
                     if (location.getWorld() != null) {
                         WorldBorder worldBorder = location.getWorld().getWorldBorder();
                         Random rnd = new Random();
-                        //TODO Change 1000 to config int
-                        //TODO if(config > worldBorder.getSize())
-                        //TODO int x = rnd.nextInt(+-worldBorder.getSize())
-                        //TODO else
-                        //TODO int x = rnd.nextInt(+-config)
-                        int x = rnd.nextInt(1000 * 2) - 1000;
-                        int y = rnd.nextInt(1000 * 2) - 1000;
-                        int z = rnd.nextInt(1000 * 2) - 1000;
+                        int x,y,z;
+                        if(getConfig().getInt("General.Random-Travel-Value") > worldBorder.getSize()){
+                             x = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
+                             y = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
+                             z = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
+                        } else {
+                             x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
+                             y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
+                             z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
+                        }
                         Location portalLocation = new Location(player.getWorld(), x, y, z);
                         makePortal(portalLocation, player);
                         player.closeInventory();
@@ -536,6 +540,14 @@ public class Main extends JavaPlugin implements Listener {
                     event.setCancelled(true);
                     makePortal(player.getWorld().getSpawnLocation(), player);
                     player.closeInventory();
+                }
+                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.WHITE + "New Location")){
+                    ConversationFactory cf = new ConversationFactory(this);
+                    Conversation conv = cf.withFirstPrompt(new ChatPrompt()).withLocalEcho(false).buildConversation(player);
+                    player.closeInventory();
+                    conv.begin();
+                    getPlayerData().set("Players." + playerToUUID(player) + ".Saved-Location." + locationName, player.getLocation());
+                    savePlayerData();
                 }
             }
         }
