@@ -34,13 +34,12 @@ import static org.bukkit.ChatColor.*;
 
 public class Main extends JavaPlugin implements Listener {
 
-    /*todo
-       important things to note:
-       1) I have not made a plugin yml
-       2) I have made no configuration files as of yet, rather just built the paths.
-       3) everything is a mess.
-       4) there is no help menu.
-       Have fun!
+    /*todo list
+       1) saved location (finished)
+       2) personal vault (is this really required with the enderchest?)
+       3) commands (set admin commands)
+       4) player teleportation
+       5) server locations
      */
 
     private Location previousLocation = null;
@@ -445,17 +444,17 @@ public class Main extends JavaPlugin implements Listener {
 
     void openGUI(Player player) {
         Inventory mainScreen = Bukkit.createInventory(null, 45, "Portal Menu");
-        mainScreen.setItem(0, createItem("Spawn", ChatColor.GOLD, Material.STICK, "Go to Spawn"));
+        if (player.hasPermission(spawnTeleport)) {
+            mainScreen.setItem(0, createItem("Spawn", GOLD, Material.STICK, "Go to Spawn"));
+        }
         //todo write up saved locations
         mainScreen.setItem(15, createItem("Return Portal", ChatColor.AQUA, Material.QUARTZ, "Create a portal to the previous location"));
         mainScreen.setItem(13, createItem("Random Location", ChatColor.AQUA, Material.ENDER_PEARL, "Teleport to a random location"));
         mainScreen.setItem(28, createItem("Accept", ChatColor.GREEN, Material.GREEN_WOOL, "Accept teleportation"));
         mainScreen.setItem(34, createItem("Deny", RED, Material.RED_WOOL, "Reject current teleport"));
-        /*if(player.hasPermission(serverLocationPermission)){
-            //todo - clean this up later - create another inventory menu to handle all saved server locations: for now deal with this mess
-            mainScreen.setItem(13, createItem(getConfig().getString("General.Server-Locations.One.Name"), ChatColor.GOLD, Material.getMaterial(getConfig().getString("General.Server-Locations.One.Material")), getConfig().getString("General.Server-Locations.One.Lore")));
-            mainScreen.setItem(14, createItem(getConfig().getString("General.Server-Locations.Two.Name"), ChatColor.GOLD, Material.getMaterial(getConfig().getString("General.Server-Locations.Two.Material")), getConfig().getString("General.Server-Locations.Two.Lore")));
-        */
+        if(player.hasPermission(serverLocationPermission)){
+            mainScreen.setItem(16, createItem("Server Locations", BLUE, Material.STONE_BRICKS, "Open a portal to a preset location."));
+        }
         if (player.hasPermission(locationPermission)) {
             for (int x = 1; x < 9; x++) {
                 mainScreen.setItem(x, createItem("New Location", ChatColor.WHITE, Material.GREEN_WOOL, "Click me to save a new location!"));
@@ -480,9 +479,6 @@ public class Main extends JavaPlugin implements Listener {
                 }
             }
         }
-        if (player.hasPermission(spawnTeleport)) {
-            mainScreen.setItem(13, createItem("Spawn", GOLD, Material.STICK, "Go to Spawn"));
-        }
         if (player.hasPermission(bedTeleport)){
             mainScreen.setItem(14, createItem("Bed", RED, Material.RED_BED, "Go to Bed"));
         }
@@ -496,8 +492,10 @@ public class Main extends JavaPlugin implements Listener {
             Inventory personalVault = Bukkit.createInventory(null, 54, "Personal Vault");
             player.openInventory(personalVault);
         }
+        if(player.hasPermission(playerTeleportPermission)){
+            mainScreen.setItem(39, createItem("Teleport to Players", GREEN, Material.WITHER_SKELETON_SKULL, "Teleport to any player on the server!"));
+        }
         player.openInventory(mainScreen);
-        //todo: player teleportation! (gods that is going to be so fun)
     }
 
     @EventHandler
@@ -533,7 +531,7 @@ public class Main extends JavaPlugin implements Listener {
                 }
                 if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GOLD + "Spawn") && event.getCurrentItem().getType() == Material.STICK) {
                     event.setCancelled(true);
-                    makePortal(player.getWorld().getSpawnLocation(), player);
+                    makePortal(getConfig().getLocation("General.Spawn"), player);
                     player.closeInventory();
                 }
                 if (event.getCurrentItem().getItemMeta().getDisplayName().equals(RED + "Bed") && event.getCurrentItem().getType() == Material.RED_BED) {
@@ -549,10 +547,31 @@ public class Main extends JavaPlugin implements Listener {
                     getPlayerData().set("Players." + playerToUUID(player) + ".Saved-Location." + locationName, player.getLocation());
                     savePlayerData();
                 }
+                if(event.getCurrentItem().getItemMeta().hasDisplayName() && event.getCurrentItem().getItemMeta().hasLore() && event.getCurrentItem().getType() == Material.STICK ){
+                    player.closeInventory();
+                    makePortal(getPlayerData().getLocation("Players." + playerToUUID(player) + "." + event.getCurrentItem().getItemMeta().getDisplayName()), player);
+                }
+                if(event.getCurrentItem().getItemMeta().getDisplayName().equals(GREEN + "Teleport to Players") && event.getCurrentItem().getType() == Material.WITHER_SKELETON_SKULL){
+                    openPlayerTeleportMenu(player);
+                }
+                if(event.getCurrentItem().getItemMeta().getDisplayName().equals(BLUE + "Server Locations") && event.getCurrentItem().getType() == Material.STONE_BRICKS){
+                    openServerLocations(player);
+                }
             }
         }
     }
 
+    public void openPlayerTeleportMenu(Player player){
+        /*todo get everyone from the server without the "teleport disabled" permission (?), add them to a big ol list
+            use that list to split everyone between pages (figure out how to do that)
+        */
+    }
+
+    public void openServerLocations(Player player){
+        //todo same as the above method really, just grabbing from the config instead of online players
+
+
+    }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event){

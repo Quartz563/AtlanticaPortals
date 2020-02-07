@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ecd651ba-7963-4a93-a22e-135c7fed77ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +53,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581034755869</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Minor update:&#10;+ configuration file&#10;+ improved random gen">
+      <created>1581035084489</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1581035084489</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -60,10 +68,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="991" y="155" key="CommitChangelistDialog2" timestamp="1581034753738">
+    <state x="991" y="155" key="CommitChangelistDialog2" timestamp="1581035082771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="991" y="155" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581034753738" />
+    <state x="991" y="155" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581035082771" />
     <state x="666" y="262" key="FileChooserDialogImpl" timestamp="1580935143142">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -72,14 +80,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580944501209" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581009717384">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581035087140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581009717384" />
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581034762303">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581035087140" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581116292400">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581034762303" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581116292400" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581083477104">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581083477104" />
     <state x="666" y="149" key="refactoring.ChangeSignatureDialog" timestamp="1580939523477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
