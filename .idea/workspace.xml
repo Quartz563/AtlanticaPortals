@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecd651ba-7963-4a93-a22e-135c7fed77ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1XP5h9IWG4PsYh3KCL2WxZ6qt7w" />
   <component name="ProjectViewState">
@@ -47,13 +45,25 @@
       <option name="presentableId" value="Default" />
       <updated>1580935005375</updated>
     </task>
+    <task id="LOCAL-00001" summary="Minor update:&#10;+ configuration file&#10;+ improved random gen">
+      <created>1581034755869</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1581034755869</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="991" y="155" key="CommitChangelistDialog2" timestamp="1581034743682">
+    <state x="991" y="155" key="CommitChangelistDialog2" timestamp="1581034753738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="991" y="155" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581034743682" />
+    <state x="991" y="155" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581034753738" />
     <state x="666" y="262" key="FileChooserDialogImpl" timestamp="1580935143142">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -66,6 +76,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581009717384" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581034762303">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581034762303" />
     <state x="666" y="149" key="refactoring.ChangeSignatureDialog" timestamp="1580939523477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
