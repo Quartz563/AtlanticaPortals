@@ -56,6 +56,7 @@ public class Main extends JavaPlugin implements Listener {
     public Permission randomTeleport = new Permission("portals.RandomTeleport");
     public Permission spawnTeleport = new Permission("portals.SpawnTeleport");
     public Permission bedTeleport = new Permission("portals.BedTeleport");
+    public Permission returnTeleport = new Permission("portals.ReturnTeleport");
 
     @Override
     public void onEnable() {
@@ -448,8 +449,6 @@ public class Main extends JavaPlugin implements Listener {
             mainScreen.setItem(0, createItem("Spawn", GOLD, Material.STICK, "Go to Spawn"));
         }
         //todo write up saved locations
-        mainScreen.setItem(15, createItem("Return Portal", ChatColor.AQUA, Material.QUARTZ, "Create a portal to the previous location"));
-        mainScreen.setItem(13, createItem("Random Location", ChatColor.AQUA, Material.ENDER_PEARL, "Teleport to a random location"));
         mainScreen.setItem(28, createItem("Accept", ChatColor.GREEN, Material.GREEN_WOOL, "Accept teleportation"));
         mainScreen.setItem(34, createItem("Deny", RED, Material.RED_WOOL, "Reject current teleport"));
         if(player.hasPermission(serverLocationPermission)){
@@ -495,6 +494,9 @@ public class Main extends JavaPlugin implements Listener {
         if(player.hasPermission(playerTeleportPermission)){
             mainScreen.setItem(39, createItem("Teleport to Players", GREEN, Material.WITHER_SKELETON_SKULL, "Teleport to any player on the server!"));
         }
+        if (player.hasPermission(returnTeleport)){
+            mainScreen.setItem(15, createItem("Return Portal", ChatColor.AQUA, Material.QUARTZ, "Create a portal to the previous location"));
+        }
         player.openInventory(mainScreen);
     }
 
@@ -511,13 +513,13 @@ public class Main extends JavaPlugin implements Listener {
                         Random rnd = new Random();
                         int x,y,z;
                         if(getConfig().getInt("General.Random-Travel-Value") > worldBorder.getSize()){
-                             x = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
-                             y = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
-                             z = rnd.nextInt((int) (worldBorder.getSize() * 2)) - 1000;
+                             x = rnd.nextInt(worldBorder.getCenter().getBlockX() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
+                             y = rnd.nextInt(worldBorder.getCenter().getBlockY() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
+                             z = rnd.nextInt(worldBorder.getCenter().getBlockZ() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
                         } else {
-                             x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
-                             y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
-                             z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - 1000;
+                             x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                             y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                             z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
                         }
                         Location portalLocation = new Location(player.getWorld(), x, y, z);
                         makePortal(portalLocation, player);
