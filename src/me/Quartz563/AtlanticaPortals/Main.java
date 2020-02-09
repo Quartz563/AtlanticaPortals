@@ -7,7 +7,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.EndGateway;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.conversations.Conversation;
@@ -19,16 +18,15 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import static org.bukkit.ChatColor.*;
 
@@ -37,9 +35,9 @@ public class Main extends JavaPlugin implements Listener {
     /*todo list
        1) saved location (finished)
        2) personal vault (is this really required with the enderchest?)
-       3) commands (set admin commands)
+       3) commands (done? I think?)
        4) player teleportation
-       5) server locations
+       5) server locations (Finished, I believe.)
      */
 
     private Location previousLocation = null;
@@ -444,7 +442,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     void openGUI(Player player) {
-        Inventory mainScreen = Bukkit.createInventory(null, 45, "Portal Menu");
+        Inventory mainScreen = Bukkit.createInventory(null, 45, LIGHT_PURPLE + "Portal Menu");
         if (player.hasPermission(spawnTeleport)) {
             mainScreen.setItem(0, createItem("Spawn", GOLD, Material.STICK, "Go to Spawn"));
         }
@@ -503,76 +501,109 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getCurrentItem() != null) {
-            if (event.getCurrentItem().getItemMeta() != null) {
-                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Random Location") && event.getCurrentItem().getType() == Material.ENDER_PEARL) {
-                    event.setCancelled(true);
-                    Location location = player.getLocation();
-                    if (location.getWorld() != null) {
-                        WorldBorder worldBorder = location.getWorld().getWorldBorder();
-                        Random rnd = new Random();
-                        int x,y,z;
-                        if(getConfig().getInt("General.Random-Travel-Value") > worldBorder.getSize()){
-                             x = rnd.nextInt(worldBorder.getCenter().getBlockX() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
-                             y = rnd.nextInt(worldBorder.getCenter().getBlockY() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
-                             z = rnd.nextInt(worldBorder.getCenter().getBlockZ() + (int) (worldBorder.getSize() * 2 +1)) - (int) worldBorder.getSize();
-                        } else {
-                             x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
-                             y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
-                             z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+        InventoryView iView = event.getView();
+        if(iView.getTitle().equals(DARK_PURPLE + "Portal Menu")) {
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta() != null) {
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.AQUA + "Random Location") && event.getCurrentItem().getType() == Material.ENDER_PEARL) {
+                        event.setCancelled(true);
+                        Location location = player.getLocation();
+                        if (location.getWorld() != null) {
+                            WorldBorder worldBorder = location.getWorld().getWorldBorder();
+                            Random rnd = new Random();
+                            int x, y, z;
+                            if (getConfig().getInt("General.Random-Travel-Value") > worldBorder.getSize()) {
+                                x = rnd.nextInt(worldBorder.getCenter().getBlockX() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
+                                y = rnd.nextInt(worldBorder.getCenter().getBlockY() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
+                                z = rnd.nextInt(worldBorder.getCenter().getBlockZ() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
+                            } else {
+                                x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                                y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                                z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                            }
+                            Location portalLocation = new Location(player.getWorld(), x, y, z);
+                            makePortal(portalLocation, player);
+                            player.closeInventory();
                         }
-                        Location portalLocation = new Location(player.getWorld(), x, y, z);
-                        makePortal(portalLocation, player);
+                    }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(LIGHT_PURPLE + "Enderchest") && event.getCurrentItem().getType() == Material.ENDER_CHEST) {
+                        event.setCancelled(true);
+                        player.openInventory(player.getEnderChest());
+                        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 0.5F, 1F);
+                    }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GOLD + "Spawn") && event.getCurrentItem().getType() == Material.STICK) {
+                        event.setCancelled(true);
+                        makePortal(getConfig().getLocation("General.Spawn"), player);
                         player.closeInventory();
                     }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(RED + "Bed") && event.getCurrentItem().getType() == Material.RED_BED) {
+                        event.setCancelled(true);
+                        makePortal(player.getWorld().getSpawnLocation(), player);
+                        player.closeInventory();
+                    }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.WHITE + "New Location")) {
+                        ConversationFactory cf = new ConversationFactory(this);
+                        Conversation conv = cf.withFirstPrompt(new ChatPrompt()).withLocalEcho(false).buildConversation(player);
+                        player.closeInventory();
+                        conv.begin();
+                        getPlayerData().set("Players." + playerToUUID(player) + ".Saved-Location." + locationName, player.getLocation());
+                        savePlayerData();
+                    }
+                    if (event.getCurrentItem().getItemMeta().hasDisplayName() && event.getCurrentItem().getItemMeta().hasLore() && event.getCurrentItem().getType() == Material.STICK) {
+                        player.closeInventory();
+                        makePortal(getPlayerData().getLocation("Players." + playerToUUID(player) + "." + event.getCurrentItem().getItemMeta().getDisplayName()), player);
+                    }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GREEN + "Teleport to Players") && event.getCurrentItem().getType() == Material.WITHER_SKELETON_SKULL) {
+                        openPlayerTeleportMenu(player);
+                    }
+                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals(BLUE + "Server Locations") && event.getCurrentItem().getType() == Material.STONE_BRICKS) {
+                        openServerLocations(player);
+                    }
                 }
-                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(LIGHT_PURPLE + "Enderchest") && event.getCurrentItem().getType() == Material.ENDER_CHEST) {
-                    event.setCancelled(true);
-                    player.openInventory(player.getEnderChest());
-                    player.getWorld().playSound(player.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 0.5F, 1F);
-                }
-                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GOLD + "Spawn") && event.getCurrentItem().getType() == Material.STICK) {
-                    event.setCancelled(true);
-                    makePortal(getConfig().getLocation("General.Spawn"), player);
-                    player.closeInventory();
-                }
-                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(RED + "Bed") && event.getCurrentItem().getType() == Material.RED_BED) {
-                    event.setCancelled(true);
-                    makePortal(player.getWorld().getSpawnLocation(), player);
-                    player.closeInventory();
-                }
-                if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.WHITE + "New Location")){
-                    ConversationFactory cf = new ConversationFactory(this);
-                    Conversation conv = cf.withFirstPrompt(new ChatPrompt()).withLocalEcho(false).buildConversation(player);
-                    player.closeInventory();
-                    conv.begin();
-                    getPlayerData().set("Players." + playerToUUID(player) + ".Saved-Location." + locationName, player.getLocation());
-                    savePlayerData();
-                }
-                if(event.getCurrentItem().getItemMeta().hasDisplayName() && event.getCurrentItem().getItemMeta().hasLore() && event.getCurrentItem().getType() == Material.STICK ){
-                    player.closeInventory();
-                    makePortal(getPlayerData().getLocation("Players." + playerToUUID(player) + "." + event.getCurrentItem().getItemMeta().getDisplayName()), player);
-                }
-                if(event.getCurrentItem().getItemMeta().getDisplayName().equals(GREEN + "Teleport to Players") && event.getCurrentItem().getType() == Material.WITHER_SKELETON_SKULL){
-                    openPlayerTeleportMenu(player);
-                }
-                if(event.getCurrentItem().getItemMeta().getDisplayName().equals(BLUE + "Server Locations") && event.getCurrentItem().getType() == Material.STONE_BRICKS){
-                    openServerLocations(player);
-                }
+            }
+        }
+        //I guarentee you, these methods will error because why on earth would they work otherwise?
+        if(iView.getTitle().equals(LIGHT_PURPLE + "Server Locations")){
+            if(event.getCurrentItem().getType() != null || event.getCurrentItem().getType() != Material.AIR){
+                player.closeInventory();
+                makePortal(getConfig().getLocation("General.Server-Locations." + ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName())), player);
+            }
+        }
+        if(iView.getTitle().equals(AQUA + "Player Teleport")){
+            if(event.getCurrentItem().getType() != null || event.getCurrentItem().getType() != Material.AIR){
+                player.closeInventory();
             }
         }
     }
 
     public void openPlayerTeleportMenu(Player player){
-        /*todo get everyone from the server without the "teleport disabled" permission (?), add them to a big ol list
-            use that list to split everyone between pages (figure out how to do that)
-        */
+        Inventory playerTeleport = Bukkit.createInventory(null, 54, AQUA + "Player Teleport");
+        int counter = 0;
+        playerTeleport.setItem(45, createItem("Previous Page", AQUA, Material.BLUE_WOOL, null));
+        playerTeleport.setItem(53, createItem("Next Page", AQUA, Material.BLUE_WOOL, null));
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            ItemStack charSkull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
+            SkullMeta charMeta = (SkullMeta) charSkull.getItemMeta();
+            charMeta.setOwningPlayer((OfflinePlayer) onlinePlayer);
+            charMeta.setDisplayName(ChatColor.GOLD + player.getDisplayName());
+            playerTeleport.setItem(counter, charSkull);
+            counter++;
+            if(counter == 45){
+                break;
+            }
+        }
+        player.openInventory(playerTeleport);
     }
 
     public void openServerLocations(Player player){
         //todo same as the above method really, just grabbing from the config instead of online players
-
-
+        Inventory serverLocations = Bukkit.createInventory(null, 45, LIGHT_PURPLE + "Server Locations");
+        if(getConfig().getInt("General.Server-Locations.Total") == 0) {
+            for (Integer i = 0; i < getConfig().getInt("General.Server-Locations.Total"); i++) {
+                //oh right, this will error too because why in the god damn wouldnt it
+                serverLocations.setItem(i, createItem(getConfig().getString("General.Server-Locations." + i.toString() + ".Name"), GREEN, Material.getMaterial(getConfig().getString("General.Server-Locations." + i.toString() + ".Material")), getConfig().getLocation("General.Server-Locations." + i.toString() + ".Location").toString()));
+            }
+        }
     }
 
     @EventHandler
@@ -605,19 +636,58 @@ public class Main extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(command.getName().equalsIgnoreCase("portals")){
             if (!(args.length == 0)) {
+                //change this into opening the help menu
                 if (args[0].equalsIgnoreCase("open")) {
                     openGUI((Player) sender);
                 }
             } else {
                 sender.sendMessage(RED + "Please use " + GOLD + "/portals open");
             }
+            if(args[0].equalsIgnoreCase("give")){
+                if(sender.hasPermission(adminPermission)) {
+                    if (args[1].isEmpty()) {
+                        Player player = (Player) sender;
+                        player.getInventory().addItem(createItem("Portal Stick", ChatColor.GOLD, Material.BLAZE_ROD, "Used to create portals to other locations"));
+                    } else {
+                        try {
+                            Player player = Bukkit.getPlayer(args[1]);
+                            player.getInventory().addItem(createItem("Portal Stick", ChatColor.GOLD, Material.BLAZE_ROD, "Used to create portals to other locations"));
+                        } catch(Exception e){
+                            sender.sendMessage(RED + "Error - Player not found");
+                        }
+                    }
+                }
+            }
+            if(args[0].equalsIgnoreCase("set")) {
+                if (sender.hasPermission(adminPermission)) {
+                    if (args[1].equalsIgnoreCase("spawn")) {
+                        Player player = (Player) sender;
+                        getConfig().set("General.Spawn", player.getLocation());
+                    } else if (args[1].equalsIgnoreCase("location")) {
+                        if (args[2].isEmpty()) {
+                            sender.sendMessage(RED + "Error - Correct usage is /portals set location [location name]");
+                        } else {
+                            Player player = (Player) sender;
+                            if (getConfig().getInt("General.Server-Locations.Total") == 0) {
+                                getConfig().set("General.Server-Locations.Total", 1);
+                            } else {
+                                getConfig().set("General.Server-Locations.Total", getConfig().getInt("General.Server-Locations.Total") + 1);
+                            }
+                            getConfig().set("General.Server-Locations." + args[2], player.getLocation());
+                        }
+                    } else {
+                        sender.sendMessage(RED + "Error - Correct usage is /portals set [spawn|location] <location name>");
+                    }
+                }
+            }
         }
         return true;
     }
 
     public void helpMenu(Player player){
-        player.sendMessage(ChatColor.GOLD + "=========[Atlantica Portals]=========");
-        //player.sendMessage(ChatColor.GOLD + );
+        player.sendMessage(ChatColor.GOLD + "===================[Atlantica Portals]==================");
+        player.sendMessage(ChatColor.GOLD + "Key: [] = required argument, <> = optional requirement ");
+        player.sendMessage(GOLD + "Note: certain commands have arguments that become required.");
     }
 
 

@@ -18,6 +18,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Quartz563 &lt;quartz135@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -60,18 +65,26 @@
       <option name="project" value="LOCAL" />
       <updated>1581035084489</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise">
+      <created>1581118691332</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1581118691332</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
+    <MESSAGE value="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise" />
+    <option name="LAST_COMMIT_MESSAGE" value="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="991" y="155" key="CommitChangelistDialog2" timestamp="1581035082771">
+    <state x="456" y="191" key="CommitChangelistDialog2" timestamp="1581283340782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="991" y="155" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581035082771" />
+    <state x="456" y="191" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581283340782" />
     <state x="666" y="262" key="FileChooserDialogImpl" timestamp="1580935143142">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -80,18 +93,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580944501209" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581035087140">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581118695835">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581035087140" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581116292400">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581118695835" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581258832279">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581116292400" />
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581083477104">
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581258832279" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581258835947">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581083477104" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581258835947" />
     <state x="666" y="149" key="refactoring.ChangeSignatureDialog" timestamp="1580939523477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
