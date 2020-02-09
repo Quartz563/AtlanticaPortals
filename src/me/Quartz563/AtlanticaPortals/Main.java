@@ -572,6 +572,7 @@ public class Main extends JavaPlugin implements Listener {
         if(iView.getTitle().equals(AQUA + "Player Teleport")){
             if(event.getCurrentItem().getType() != null || event.getCurrentItem().getType() != Material.AIR){
                 player.closeInventory();
+                makePortal(Bukkit.getPlayer(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName())).getLocation(), player);
             }
         }
     }

@@ -72,13 +72,21 @@
       <option name="project" value="LOCAL" />
       <updated>1581118691332</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- Added several commands&#10;- Finished server locations&#10;- almost finished player teleport">
+      <created>1581283345044</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1581283345046</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
     <MESSAGE value="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise" />
-    <option name="LAST_COMMIT_MESSAGE" value="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise" />
+    <MESSAGE value="- Added several commands&#10;- Finished server locations&#10;- almost finished player teleport" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added several commands&#10;- Finished server locations&#10;- almost finished player teleport" />
   </component>
   <component name="WindowStateProjectService">
     <state x="456" y="191" key="CommitChangelistDialog2" timestamp="1581283340782">
@@ -93,10 +101,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580944501209" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581118695835">
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581283383929">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581118695835" />
+    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581283383929" />
     <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581258832279">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
