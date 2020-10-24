@@ -1,4 +1,4 @@
-package me.Quartz563.AtlanticaPortals;
+package net.quartz563.AtlanticaPortals;
 
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;
@@ -6,7 +6,7 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 
 
-import static me.Quartz563.AtlanticaPortals.Main.locationName;
+import static net.quartz563.AtlanticaPortals.Main.locationName;
 
 
 public class ChatPrompt extends StringPrompt {

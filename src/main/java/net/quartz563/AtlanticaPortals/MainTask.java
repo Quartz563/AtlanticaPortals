@@ -1,4 +1,4 @@
-package me.Quartz563.AtlanticaPortals;
+package net.quartz563.AtlanticaPortals;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

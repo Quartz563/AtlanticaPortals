@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ecd651ba-7963-4a93-a22e-135c7fed77ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_21_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_16_R0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_16_3_R0_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/configs/AbstractFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/configs/FileCreationEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/configs/files/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/configs/files/Players.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/spigot_1_15_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AtlanticaPortals.iml" beforeDir="false" afterPath="$PROJECT_DIR$/AtlanticaPortals.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/ChatPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/ChatPrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/me/Quartz563/AtlanticaPortals/MainTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/quartz563/AtlanticaPortals/MainTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/players.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/players.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,20 +70,34 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1XP5h9IWG4PsYh3KCL2WxZ6qt7w" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/spigot-1.15.2.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\quart\Desktop\AtlanticaPortals\src\main\resources" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -82,6 +140,17 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor update:&#10;+ configuration file&#10;+ improved random gen" />
     <MESSAGE value="- prepped methods for server location and player teleport&#10;- added a todo list&#10;- changed a few bits and bobs around GUI wise" />
@@ -89,33 +158,13 @@
     <option name="LAST_COMMIT_MESSAGE" value="- Added several commands&#10;- Finished server locations&#10;- almost finished player teleport" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="456" y="191" key="CommitChangelistDialog2" timestamp="1581283340782">
+    <state x="681" y="209" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1603492625524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="456" y="191" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581283340782" />
-    <state x="666" y="262" key="FileChooserDialogImpl" timestamp="1580935143142">
+    <state x="681" y="209" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603492625524" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1603492759525">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="666" y="262" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580935143142" />
-    <state x="440" y="95" key="SettingsEditor" timestamp="1580944501209">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580944501209" />
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2" timestamp="1581283383929">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581283383929" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581258832279">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581258832279" />
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581258835947">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581258835947" />
-    <state x="666" y="149" key="refactoring.ChangeSignatureDialog" timestamp="1580939523477">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="666" y="149" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580939523477" />
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603492759525" />
   </component>
 </project>

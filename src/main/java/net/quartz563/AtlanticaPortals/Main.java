@@ -1,5 +1,7 @@
-package me.Quartz563.AtlanticaPortals;
+package net.quartz563.AtlanticaPortals;
 
+import net.quartz563.AtlanticaPortals.configs.files.Config;
+import net.quartz563.AtlanticaPortals.configs.files.Players;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -39,11 +41,15 @@ public class Main extends JavaPlugin implements Listener {
        4) player teleportation
        5) server locations (Finished, I believe.)
      */
+    public Players playerData;
+    public Config configData;
+    private static Main instance;
 
     private Location previousLocation = null;
     static String locationName = null;
-    private File playerDataFile = null;
-    private FileConfiguration playerData = null;
+    private int locationCounter = 0;
+    private int playerCounter = 0;
+
     public Permission adminPermission = new Permission("portals.admin");
     public Permission locationPermission = new Permission("portals.saveLocation");
     public Permission serverLocationPermission = new Permission("portals.serverLocations");
@@ -61,49 +67,18 @@ public class Main extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getConfig().options().copyDefaults(true);
         this.getCommand("portals");
-        reloadPlayerDataFile();
-        savePlayerData();
+        playerData = new Players();
+        configData = new Config();
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
-        savePlayerData();
+
     }
 
-    public void reloadPlayerDataFile() {
-        if (this.playerData == null) {
-            this.playerDataFile = new File(getDataFolder(), "players.yml");
-        }
-        this.playerData = YamlConfiguration.loadConfiguration(this.playerDataFile);
-        Reader defConfigStream = null;
-        try {
-            defConfigStream = new InputStreamReader(getResource("players.yml"), "UTF8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        if (defConfigStream != null) {
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-
-        }
-    }
-
-    public FileConfiguration getPlayerData() {
-        if (this.playerData == null) {
-            reloadPlayerDataFile();
-        }
-        return this.playerData;
-    }
-
-    public void savePlayerData() {
-        if ((this.playerData == null) || (this.playerDataFile == null)) {
-            reloadPlayerDataFile();
-        }
-        try {
-            getPlayerData().save(this.playerDataFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static Main getInstance() {
+        return instance;
     }
 
     public String playerToUUID(Player player) {
@@ -459,19 +434,20 @@ public class Main extends JavaPlugin implements Listener {
             for (int x = 18; x < 27; x++) {
                 mainScreen.setItem(x, createItem("New Location", ChatColor.WHITE, Material.GREEN_WOOL, "Click me to save a new location"));
             }
-            ArrayList<String> locations = new ArrayList<>(getPlayerData().getConfigurationSection("Players." + playerToUUID(player) + ".Saved-Locations").getKeys(false));
-            if(locations != null){
-                if(locations.size() > 9){
+
+            ArrayList<String> locations = playerData.getLocationKeys(playerToUUID(player));
+            if(locations != null) {
+                if (locations.size() > 9) {
                     //split the first lot amongst the 9, then the leftovers on the second set
-                    for(int x = 1; x < 9; x++){
-                        mainScreen.setItem(x, createItem(locations.get(x-1), ChatColor.BLUE, Material.STICK, getPlayerData().getString("Players." + playerToUUID(player) + ".Saved-Locations." + locations.get(x-1))));
-                   }
-                    for(int x = 18; x < 27; x++){
-                        mainScreen.setItem(x, createItem(locations.get(x-9), ChatColor.BLUE, Material.STICK, getPlayerData().getString("Players." + playerToUUID(player) + ".Saved-Locations." + locations.get(x-9))));
+                    for (int x = 1; x < 9; x++) {
+                        mainScreen.setItem(x, createItem(locations.get(x - 1), ChatColor.BLUE, Material.STICK, playerData.getSavedLocation(locations.get(x - 1), playerToUUID(player)).toString()));
+                    }
+                    for (int x = 18; x < 27; x++) {
+                        mainScreen.setItem(x, createItem(locations.get(x - 9), ChatColor.BLUE, Material.STICK, playerData.getSavedLocation(locations.get(x - 9), playerToUUID(player)).toString()));
                     }
                 } else {
-                    for(int x = 1; x < 9; x++){
-                        mainScreen.setItem(x, createItem(locations.get(x-1), ChatColor.BLUE, Material.STICK, getPlayerData().getString("Players." + playerToUUID(player) + ".Saved-Locations." + locations.get(x-1))));
+                    for (int x = 1; x < 9; x++) {
+                        mainScreen.setItem(x, createItem(locations.get(x - 1), ChatColor.BLUE, Material.STICK, playerData.getSavedLocation(locations.get(x - 1), playerToUUID(player)).toString()));
                     }
                 }
             }
@@ -486,8 +462,7 @@ public class Main extends JavaPlugin implements Listener {
             mainScreen.setItem(40, createItem("Enderchest", LIGHT_PURPLE, Material.ENDER_CHEST, "Open your Enderchest."));
         }
         if (player.hasPermission(personalVault)){
-            Inventory personalVault = Bukkit.createInventory(null, 54, "Personal Vault");
-            player.openInventory(personalVault);
+            //todo test later...
         }
         if(player.hasPermission(playerTeleportPermission)){
             mainScreen.setItem(39, createItem("Teleport to Players", GREEN, Material.WITHER_SKELETON_SKULL, "Teleport to any player on the server!"));
@@ -512,14 +487,14 @@ public class Main extends JavaPlugin implements Listener {
                             WorldBorder worldBorder = location.getWorld().getWorldBorder();
                             Random rnd = new Random();
                             int x, y, z;
-                            if (getConfig().getInt("General.Random-Travel-Value") > worldBorder.getSize()) {
+                            if (configData.getRandomTravelValue() > worldBorder.getSize()) {
                                 x = rnd.nextInt(worldBorder.getCenter().getBlockX() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
                                 y = rnd.nextInt(worldBorder.getCenter().getBlockY() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
                                 z = rnd.nextInt(worldBorder.getCenter().getBlockZ() + (int) (worldBorder.getSize() * 2 + 1)) - (int) worldBorder.getSize();
                             } else {
-                                x = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
-                                y = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
-                                z = rnd.nextInt(getConfig().getInt("General.Random-Travel-Value") * 2) - getConfig().getInt("General.Random-Travel-Value");
+                                x = rnd.nextInt(configData.getRandomTravelValue() * 2) - configData.getRandomTravelValue();
+                                y = rnd.nextInt(configData.getRandomTravelValue() * 2) - configData.getRandomTravelValue();
+                                z = rnd.nextInt(configData.getRandomTravelValue() * 2) - configData.getRandomTravelValue();
                             }
                             Location portalLocation = new Location(player.getWorld(), x, y, z);
                             makePortal(portalLocation, player);
@@ -533,7 +508,7 @@ public class Main extends JavaPlugin implements Listener {
                     }
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GOLD + "Spawn") && event.getCurrentItem().getType() == Material.STICK) {
                         event.setCancelled(true);
-                        makePortal(getConfig().getLocation("General.Spawn"), player);
+                        makePortal(configData.getSpawn(), player);
                         player.closeInventory();
                     }
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equals(RED + "Bed") && event.getCurrentItem().getType() == Material.RED_BED) {
@@ -546,33 +521,47 @@ public class Main extends JavaPlugin implements Listener {
                         Conversation conv = cf.withFirstPrompt(new ChatPrompt()).withLocalEcho(false).buildConversation(player);
                         player.closeInventory();
                         conv.begin();
-                        getPlayerData().set("Players." + playerToUUID(player) + ".Saved-Location." + locationName, player.getLocation());
-                        savePlayerData();
+                        playerData.setNewSavedLocation(locationName, player.getLocation(), playerToUUID(player));
                     }
                     if (event.getCurrentItem().getItemMeta().hasDisplayName() && event.getCurrentItem().getItemMeta().hasLore() && event.getCurrentItem().getType() == Material.STICK) {
                         player.closeInventory();
-                        makePortal(getPlayerData().getLocation("Players." + playerToUUID(player) + "." + event.getCurrentItem().getItemMeta().getDisplayName()), player);
+                        makePortal(playerData.getSavedLocation(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()), playerToUUID(player)), player);
+                        previousLocation = player.getLocation();
                     }
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equals(GREEN + "Teleport to Players") && event.getCurrentItem().getType() == Material.WITHER_SKELETON_SKULL) {
                         openPlayerTeleportMenu(player);
                     }
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equals(BLUE + "Server Locations") && event.getCurrentItem().getType() == Material.STONE_BRICKS) {
-                        openServerLocations(player);
+                        openServerLocations(player, 0);
+                    }
+                    if(event.getCurrentItem().isSimilar(createItem("Return Portal", ChatColor.AQUA, Material.QUARTZ, "Create a portal to the previous location"))){
+                        makePortal(previousLocation, player);
+                        previousLocation = player.getLocation();
                     }
                 }
             }
         }
-        //I guarentee you, these methods will error because why on earth would they work otherwise?
-        if(iView.getTitle().equals(LIGHT_PURPLE + "Server Locations")){
+        if(iView.getTitle().contains(LIGHT_PURPLE + "Server Locations")){
             if(event.getCurrentItem().getType() != null || event.getCurrentItem().getType() != Material.AIR){
                 player.closeInventory();
                 makePortal(getConfig().getLocation("General.Server-Locations." + ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName())), player);
+                previousLocation = player.getLocation();
+            } else if(event.getCurrentItem() == null){
+                if(locationCounter > (int) Math.round(configData.getServerLocationTotal()/45.0)){
+                    openServerLocations(player, 0);
+                } else {
+                    openServerLocations(player, locationCounter);
+                    locationCounter++;
+                }
             }
         }
-        if(iView.getTitle().equals(AQUA + "Player Teleport")){
+        if(iView.getTitle().contains(AQUA + "Player Teleport")){
             if(event.getCurrentItem().getType() != null || event.getCurrentItem().getType() != Material.AIR){
                 player.closeInventory();
                 makePortal(Bukkit.getPlayer(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName())).getLocation(), player);
+                previousLocation = player.getLocation();
+            } else if(event.getCurrentItem() == null){
+                player.sendMessage("Null Clicked.");
             }
         }
     }
@@ -596,15 +585,26 @@ public class Main extends JavaPlugin implements Listener {
         player.openInventory(playerTeleport);
     }
 
-    public void openServerLocations(Player player){
-        //todo same as the above method really, just grabbing from the config instead of online players
-        Inventory serverLocations = Bukkit.createInventory(null, 45, LIGHT_PURPLE + "Server Locations");
-        if(getConfig().getInt("General.Server-Locations.Total") == 0) {
-            for (Integer i = 0; i < getConfig().getInt("General.Server-Locations.Total"); i++) {
-                //oh right, this will error too because why in the god damn wouldnt it
-                serverLocations.setItem(i, createItem(getConfig().getString("General.Server-Locations." + i.toString() + ".Name"), GREEN, Material.getMaterial(getConfig().getString("General.Server-Locations." + i.toString() + ".Material")), getConfig().getLocation("General.Server-Locations." + i.toString() + ".Location").toString()));
+    public void openServerLocations(Player player, int screen){
+        Inventory serverLocations = Bukkit.createInventory(null, 45, LIGHT_PURPLE + "Server Locations - Page " + screen);
+        if(configData.getServerLocationTotal() > 45) {
+            String[][] locations = new String[(int) Math.floor(configData.getServerLocationTotal()/45.0)][45];
+            int counter = 0;
+            for (int i = 0; i < (int) Math.round(configData.getServerLocationTotal() / 45.0); i++) {
+                for (int x = 0; x < 45; x++) {
+                    locations[i][x] = configData.getNextLocation(counter);
+                    counter++;
+                }
+            }
+            for (int i = 0; i < Math.min(45, locations[screen].length); i++) {
+                serverLocations.setItem(i, createLocationItem(locations[screen][i]));
+            }
+        } else {
+            for (int i = 0; i < getConfig().getInt("General.Server-Locations.Total"); i++) {
+                serverLocations.setItem(i, createLocationItem(configData.getNextLocation(i)));
             }
         }
+        player.openInventory(serverLocations);
     }
 
     @EventHandler
@@ -623,13 +623,21 @@ public class Main extends JavaPlugin implements Listener {
         }
     }
 
-
     public ItemStack createItem(String name, ChatColor nameColour, Material material, String lore) {
         ItemStack item = new ItemStack(material);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(nameColour + name);
         itemMeta.setLore(Arrays.asList(lore));
         item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public ItemStack createLocationItem(String name){
+        ItemStack item = new ItemStack(configData.getServerLocationMaterial(name));
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(AQUA + name);
+        meta.setLore(Arrays.asList(configData.getServerLocation(name).toString()));
+        item.setItemMeta(meta);
         return item;
     }
 
