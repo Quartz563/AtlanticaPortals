@@ -1,8 +1,34 @@
+#
+# Welcome to the Atlantica Portals Settings file!
+#
+# For help, please read the notes assocated to each node or contact Quartz563/RivKiinShadows
 
 
+
+#The current version of this configuration, will automatially regenerate the default if this value is out of alignment with the plugin
+Version: 1
+#The plugin prefix used for messaging
+Prefix: "&8[&5Portals&8] &7"
+#Creates logs for all lag caused by the plugin in the event of the plugin stalling over a certain time limit
+Log_Lag_Over_Mills: 100
+#A series of debug messages, not required for regular use.
+Debug[]:
 
 #this is the value the plugin will use to randomly decide what coord set it will send the player too
 Random-Travel-Value: 1000
 #Represents the location that the spawn portal will take players too
 Spawn: null
-#Configurable list of locations. Will be automatically generated on creation.
+
+#enables the plugin leveling system
+Enable-Leveling: false
+Level:
+  #the maximum level a player can reach
+  Maximum-Level: 10
+  #Below are the various level requirements for the plugin. Requires leveling to work
+  Bed-Level-Requirement: 1
+  Random-Level-Requirement: 1
+  Server-Location-Level-Requirement: 2
+  Player-Location-Level-Requirement: 3
+  Player-Teleport-Level-Requirement: 6
+  Return-Level-Requirement: 2
+  Ender-Level-Requirement: 4
