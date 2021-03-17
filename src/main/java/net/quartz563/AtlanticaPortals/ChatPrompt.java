@@ -6,7 +6,7 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 
 
-import static net.quartz563.AtlanticaPortals.Main.locationName;
+import static net.quartz563.AtlanticaPortals.AtlanticaPortals.locationName;
 
 
 public class ChatPrompt extends StringPrompt {
